@@ -53,7 +53,7 @@ $(function() {
 		
 	</form>
 		<div>
-			<input type="button" class="login_btn" id="Login" value="로그인"/>
+			<input type="submit" class="login_btn" id="Login" value="로그인"/>
 			<input type="button" class="login_btn" id="Join" value="회원가입 하러 가기"/>
 		</div>
 		<br />

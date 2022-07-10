@@ -14,10 +14,22 @@
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <!-- jquery -->
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-
-	
+$(document).ready(function()
+		{
+			//alert("확인");
+			
+			$("#birthday").datepicker(
+			{
+				dateFormat : "yy-mm-dd"
+				, changeMonth : true
+				, changeYear : true
+			});
+		});
+		
 </script>
 
 </head>
@@ -51,14 +63,14 @@
 	    <br />
 		<div>
 	    	<label>생년월일 *</label><br />
-	    	<input type="calander" class="input_join" id="birth" name="birth" placeholder="생년월일을 입력하세요."/>
+	    	<input type="text" class="input_join" id="birthday" name="birthday" placeholder="생년월일을 입력하세요."/>
 	    	
 	    </div>
 		
 		
 	</form>
 		<div>
-			<input type="button" class="join_btn" id="join_btn" value="회원가입"/>
+			<input type="submit" class="join_btn" id="join_btn" value="회원가입"/>
 		</div>
 		<br />
 	

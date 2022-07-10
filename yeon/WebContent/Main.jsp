@@ -78,7 +78,7 @@ $(function() {
 	</div>
 
 <div class="txt_animate">
-		<span>별</span> <span>주</span><span>우</span><span>러</span> <span>갈</span> <span>시</span><span>간</span> <br />
+		<span>별</span> nbsp;<span>주</span><span>우</span><span>러</span>nbsp;<span>갈</span> nbsp;<span>시</span><span>간</span> <br />
 	
 </div>
 
