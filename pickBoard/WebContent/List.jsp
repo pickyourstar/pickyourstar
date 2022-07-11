@@ -1,8 +1,8 @@
 <%@page import="java.net.URLDecoder"%>
-<%@page import="pickBoard.BoardDTO"%>
-<%@page import="pickBoard.BoardDAO"%>
-<%@page import="java.util.List"%>
+<%@page import="pick.board.BoardDTO"%>
 <%@page import="pick.util.DBConn"%>
+<%@page import="pick.board.BoardDAO"%>
+<%@page import="java.util.List"%>
 <%@page import="pick.util.MyUtil"%>
 <%@page import="java.sql.Connection"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
@@ -15,10 +15,10 @@
    // 이전 페이지로부터(List.jsp- 스스로 던지고 스스로 받기) 데이터 수신(pageNum, num, searchKey, searchValue...)
    
    // 이전 페이지로부터 넘어온 게시물 번호 수신
-   String strNum = request.getParameter("STAR_NUMBER");
-   int STAR_NUMBER = 0;
+   String strNum = request.getParameter("num");
+   int num = 0;
    if (strNum != null)
-      STAR_NUMBER = Integer.parseInt(strNum);
+      num = Integer.parseInt(strNum);
    
    // 이전 페이지로부터 넘어온(요청) 페이지 번호 수신
    String pageNum = request.getParameter("pageNum");
@@ -46,7 +46,7 @@
     }
     else				 //-- 검색 기능이 아닌 기본적인 페이지 요청이 이루어졌을 경우
     {
-    	searchKey = "STAR_TITLE";
+    	searchKey = "subject";
     	searchValue = "";
     	
     }
@@ -182,34 +182,34 @@
          <form action="" name="searchForm" method="post">
             <select name="searchKey" class="selectFiled">
             <!-- 	
-            	<option value="star_title">제목</option>
-               <option value="user">작성자</option>
-               <option value="star_content">내용</option>
+            	<option value="subject">제목</option>
+               <option value="name">작성자</option>
+               <option value="content">내용</option>
                 -->
             
             
             	<%
-            	if(searchKey.equals("STAR_TITLE"))		// 수신한 searchKey 가 name 이라면...
+            	if(searchKey.equals("name"))		// 수신한 searchKey 가 name 이라면...
             	{
             	%>
-            		<option value="title">제목</option>
-               		<option value="writer" selected="selected">작성자</option>
+            		<option value="subject">제목</option>
+               		<option value="name" selected="selected">작성자</option>
                		<option value="content">내용</option>
             	<%
             	}
-            	else if(searchKey.equals("STAR_CONTENT"))	// 수신한 searchKey 가 content 이라면...
+            	else if(searchKey.equals("content"))	// 수신한 searchKey 가 content 이라면...
             	{
             	%>
-					<option value="title">제목</option>
-               		<option value="writer">작성자</option>
+					<option value="subject">제목</option>
+               		<option value="name">작성자</option>
                		<option value="content" selected="selected">내용</option>
 				<%
             	}
             	else        //수신한 searchKey 가 subject 이거나... 없으면... //기본은 subject 이미 설정
             	{
 				%>            		
-               		<option value="title">제목</option>
-               		<option value="writer">작성자</option>
+               		<option value="subject">제목</option>
+               		<option value="name">작성자</option>
                		<option value="content">내용</option>
                <%
             	}
@@ -234,11 +234,11 @@
       
       <div id="title">
          <dl>
-            <dt class="number">번호</dt>
-            <dt class="title">제목</dt>
-            <dt class="writer">작성자</dt>
-            <dt class="write">작성일</dt>
-            <dt class="count">조회수</dt>
+            <dt class="num">번호</dt>
+            <dt class="subject">제목</dt>
+            <dt class="name">작성자</dt>
+            <dt class="created">작성일</dt>
+            <dt class="hitCount">조회수</dt>
          </dl>
       </div><!--#title  -->
       
@@ -247,7 +247,7 @@
          <dl>
             <dd class="num">1</dd>
             <dd class="subject">안녕하세요</dd>
-            <dd class="name">김정용</dd>
+            <dd class="name">가나다</dd>
             <dd class="created">2022-04-25</dd>
             <dd class="hitCount">0</dd>
          </dl>
@@ -259,13 +259,13 @@
          %> 
           
          <dl>
-            <dd class="number"><%=dto.getSTAR_NUMBER() %></dd>
-<              <dd class="title">
-               <a href="<%=articleUrl %>&number=<%=dto.getSTAR_NUMBER() %>"><%=dto.getSTAR_TITLE() %></a>
-               </dd>
-            <dd class="writer"><%=dto.getWRITER() %></dd>
-            <dd class="write"><%=dto.getSTAR_WRITE() %></dd>
-            <dd class="count"><%=dto.getSTAR_COUNT() %></dd>
+            <dd class="num"><%=dto.getNum() %></dd>
+            <dd class="subject">
+               <a href="<%=articleUrl %>&num=<%=dto.getNum()%>"><%=dto.getSubject() %></a>
+            </dd>
+            <dd class="name"><%=dto.getName() %></dd>
+            <dd class="created"><%=dto.getCreated() %></dd>
+            <dd class="hitCount"><%=dto.getHitCount() %></dd>
          </dl>
           
          <% 

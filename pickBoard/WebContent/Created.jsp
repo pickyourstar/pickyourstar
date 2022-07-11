@@ -61,7 +61,7 @@
 		//필수 입력 항목이 아니므로 선택적인 입력이 가능하지만
 		//입력을 한 상황이면, 이메일 형식에 맞게 입력했는지 확인
 		//확인하는 처리
-		/* 
+		
 		if(f.email.value) //이메일을 입력한 상황이라면...
 		{
 			
@@ -73,7 +73,7 @@
 			}
 			
 			
-		} */
+		}
 	
 		
 		//---------------------------------------이메일 검사
@@ -114,7 +114,7 @@
 		
 		//패스워드 입력 확인----------------------------------
 		//필수 입력 항목 기재 여부 확인 및 공백 처리
-		/* 
+		
 		str = f.pwd.value;
 		
 		str = str.trim();
@@ -125,7 +125,7 @@
 			f.pwd.focus();
 			return;
 		}
-		 */
+		
 
 		//-----------------------------------패스워드 입력 확인
 		
@@ -178,9 +178,9 @@
  		
  		<div class="bbsCreated_bottomLine">
  			<dl>
- 				<dt>사    진</dt>
+ 				<dt>이 메 일</dt>
  					<dd>
- 						<input type="image" name="image" size="35" maxlength="50" class="boxTF">
+ 						<input type="email" name="email" size="35" maxlength="50" class="boxTF">
  					</dd>
  			</dl>
  		</div><!-- close .bbsCreated_bottonLine -->
@@ -198,7 +198,7 @@
  		</div><!-- close #bbsCreated_content  -->
  		
  		
- 		<!-- 
+ 		
  		<div class="bbsCreated_noLine">
  			<dl>
  				<dt>패스워드</dt>
@@ -207,9 +207,24 @@
  					&nbsp;<span style="font-size: 6pt;">(게시물 수정 및 삭제 시 필요)</span>
  				</dd>
  			</dl>
- 		 -->
+ 		
  		
  		</div><!-- close .bbsCreated_noLine -->
+ 		
+ 		
+ 		<!-- 파일 보내는 부분 추가 -->
+ 		<!-- <tr>
+				<td><input type="file" name="fileName"></td>
+			</tr> -->
+ 		
+ 		<form action="/home/uploadfiles" method="post" enctype="multipart/form-data">
+    	파일명 : <input type="file" name="myfile">
+   		 <button type="submit">제출하기</button>
+		</form>
+ 		
+ 		
+ 		
+ 		
  		
  		<div id="bbsCreated_footer">
  			<input type="button" value="등록하기" class="btn2" onclick="sendIt()">
@@ -219,14 +234,19 @@
  			onclick="javascript:location.href='<%=cp%>/List.jsp'">	
  		</div><!-- close #bbsCreated_footer -->
  		
- 		
- 		
- 		
+ 
  	
  	
  	</div><!-- close #bbsCreated -->
  
  </form>
+
+
+
+
+
+
+
 
 
 </div><!-- close #bbs -->

@@ -1,5 +1,5 @@
 <%@page import="pick.util.DBConn"%>
-<%@page import="pickBoard.BoardDAO"%>
+<%@page import="pick.board.BoardDAO"%>
 <%@page import="java.sql.Connection"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
@@ -8,7 +8,7 @@
 %>
 
 
-<jsp:useBean id="dto" class="pickBoard.BoardDTO"></jsp:useBean>
+<jsp:useBean id="dto" class="pick.board.BoardDTO"></jsp:useBean>
 <jsp:setProperty property="*" name="dto"/>
 
 <%
@@ -28,7 +28,7 @@
 
 	DBConn.close();
 	
-	response.sendRedirect(cp + "/List.jsp?num=" + dto.getSTAR_NUMBER() + "&pageNum=" + pageNum);
+	response.sendRedirect(cp + "/List.jsp?num=" + dto.getNum() + "&pageNum=" + pageNum);
 
 %>
 

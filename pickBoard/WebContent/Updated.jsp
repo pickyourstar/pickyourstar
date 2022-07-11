@@ -1,6 +1,6 @@
-<%@page import="pickBoard.BoardDTO"%>
+<%@page import="pick.board.BoardDTO"%>
 <%@page import="pick.util.DBConn"%>
-<%@page import="pickBoard.BoardDAO"%>
+<%@page import="pick.board.BoardDAO"%>
 <%@page import="java.sql.Connection"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
@@ -10,7 +10,7 @@
 <%
 	// 게시물 수정 액션 요청 시 넘어온 데이터 수신
 	
-	int STAR_NUMBER = Integer.parseInt(request.getParameter("STAR_NUMBER"));
+	int num = Integer.parseInt(request.getParameter("num"));
 	String pageNum = request.getParameter("pageNum");
 	
 	
@@ -25,7 +25,7 @@
 	Connection conn = DBConn.getConnection();
 	BoardDAO dao = new BoardDAO(conn);
 	
-	BoardDTO dto = dao.getReadData(STAR_NUMBER);
+	BoardDTO dto = dao.getReadData(num);
 	
 	/* 
 	String emailStr = "";
@@ -34,11 +34,11 @@
 		emailStr = dto.getEmail();
 	 */	
 	
-/* 	String emailStr = ""; 
+	String emailStr = ""; 
 	 
 	if(dto.getEmail()==null)
 		dto.setEmail("");
- */
+
 	
 	DBConn.close();
 	
@@ -277,14 +277,14 @@
  					{	
  					%>
  						<input type="text" name="subject" size="64" maxlength="100" class="boxTF"
- 						value="<%=dto.getSTAR_TITLE() %>">
+ 						value="<%=dto.getSubject() %>">
  					<%
  					}
  					else	//status==2 → 삭제 요청
  					{
  					%>
  						<input type="text" name="subject" size="64" maxlength="100" class="boxTF"
- 						value="<%=dto.getSTAR_TITLE() %>" disabled="disabled">
+ 						value="<%=dto.getSubject() %>" disabled="disabled">
  					<%
  					}
  					%>
@@ -303,14 +303,14 @@
  						{
  						%>
  							<input type="text" name="name" size="35" maxlength="20" class="boxTF"
- 							value="<%=dto.getWRITER() %>">
+ 							value="<%=dto.getName() %>">
  						<%
  						}
  						else
  						{
  						%>
  							<input type="text" name="name" size="35" maxlength="20" class="boxTF"
- 							value="<%=dto.getSTAR_WRITE() %>" disabled="disabled">
+ 							value="<%=dto.getName() %>" disabled="disabled">
  						
  						<%
  						}
@@ -322,7 +322,7 @@
  	
  		</div><!-- close .bbsCreated_bottonLine -->
  		
- 		<%-- 
+ 		
  		<div class="bbsCreated_bottomLine">
  			<dl>
  				<dt>이 메 일</dt>
@@ -346,7 +346,7 @@
  					</dd>
  			</dl>
  		</div><!-- close .bbsCreated_bottonLine -->
- 		 --%>
+ 		
  		
  		
  		<div id="bbsCreated_content">
@@ -358,7 +358,7 @@
  					{
  					%>
  						<textarea name="content" class="boxTA" cols="63" 
- 						rows="12"><%=dto.getSTAR_CONTENT() %></textarea>
+ 						rows="12"><%=dto.getContent() %></textarea>
  						<!-- 내용의 경우 태그들끼리 붙여서 작성할 것 주의 check~!!! -->
  					<%
  					}
@@ -366,7 +366,7 @@
  					{
  					%>	
  						<textarea name="content" class="boxTA" cols="63" 
- 						rows="12" disabled="disabled"><%=dto.getSTAR_CONTENT() %></textarea>	
+ 						rows="12" disabled="disabled"><%=dto.getContent() %></textarea>	
  					<%
  					}
  					%>	 					
@@ -376,7 +376,7 @@
  		</div><!-- close #bbsCreated_content  -->
  		
  		
- 		<%-- 
+ 		
  		<div class="bbsCreated_noLine">
  			<dl>
  				<dt>패스워드</dt>
@@ -389,15 +389,12 @@
  		
  		
  		</div><!-- close .bbsCreated_noLine -->
- 		 --%>
- 		
- 		
  		
  		<div id="bbsCreated_footer">
  			
  			<!-- Updated_ok.jsp 페이지 요청 과정에서 추가로 필요한 데이터 -->
  			<!-- DAO에서 수정 메소드가 필요로 하는 Num 추가해준다 -->
- 			<input type="hidden" name="num" value="<%=dto.getSTAR_NUMBER()%>" />
+ 			<input type="hidden" name="num" value="<%=dto.getNum()%>" />
  			<input type="hidden" name="pageNum" value="<%=pageNum %>" />
  			
  			<%

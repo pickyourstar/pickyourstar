@@ -1,6 +1,6 @@
+<%@page import="pick.board.BoardDTO"%>
 <%@page import="pick.util.DBConn"%>
-<%@page import="pickBoard.BoardDTO"%>
-<%@page import="pickBoard.BoardDAO"%>
+<%@page import="pick.board.BoardDAO"%>
 <%@page import="java.sql.Connection"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
@@ -13,15 +13,15 @@
 	
 	//이전 페이지로(List.jsp -> 목록페이지)부터 데이터(num, pageNum) 수신
 	String pageNum = request.getParameter("pageNum");   //페이지 번호
-	String strNum = request.getParameter("STAR_NUMBER");		//게시물 번호
-	int STAR_NUMBER = Integer.parseInt(strNum);
+	String strNum = request.getParameter("num");		//게시물 번호
+	int num = Integer.parseInt(strNum);
 	
 	//해당 게시물의 조회수 증가
-	dao.updateHitCount(STAR_NUMBER);
+	dao.updateHitCount(num);
 	
 	// 이전, 다음 게시물 번호 확인
-	int beforeNum = dao.getBeforeNum(STAR_NUMBER);   //	?? 22
-	int nextNum= dao.getNextNum(STAR_NUMBER);		 //    22 ??
+	int beforeNum = dao.getBeforeNum(num);   //	?? 22
+	int nextNum= dao.getNextNum(num);		 //    22 ??
 			
 	BoardDTO dtoBefore = null;
 	BoardDTO dtoNext = null;
@@ -33,13 +33,13 @@
 		dtoNext = dao.getReadData(nextNum);
 	
 	//해당 게시물의 상세 내용 가져오기
-	BoardDTO dto = dao.getReadData(STAR_NUMBER);
+	BoardDTO dto = dao.getReadData(num);
 	
 	//게시물 본문 라인 수 확인
-	int lineSu = dto.getSTAR_CONTENT().split("\n").length;
+	int lineSu = dto.getContent().split("\n").length;
 	
 	//게시물 내용
-	dto.setSTAR_CONTENT(dto.getSTAR_CONTENT().replaceAll("\n", "<br>"));
+	dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 	//-- 안녕하세요\n반갑습니다.\n즐거운오후입니다.\n안녕히가세요.
 	//-> 안녕하세요<br>반갑습니다.<br>즐거운오후입니다.<br>안녕히가세요.
 
@@ -66,14 +66,14 @@
 		
 		<div id="bbsArticle_header">
 			<!-- 게시물의 제목입니다. -->
-			<%=dto.getSTAR_TITLE() %>
+			<%=dto.getSubject() %>
 		</div><!-- close header -->
 		
 		<div class="bbsArticle_bottomLine">
 			<dl>
 				<dt>작성자</dt>
-				<!-- <dd>김정용</dd> -->
-				<dd><%=dto.getWRITER() %></dd>
+				<!-- <dd>가나다</dd> -->
+				<dd><%=dto.getName() %></dd>
 				
 				<dt>라인수</dt>
 				<!-- <dd>1</dd> -->
@@ -86,11 +86,11 @@
 			<dl>
 				<dt>등록일</dt>
 				<!-- <dd>2022-04-27</dd> -->
-				<dd><%=dto.getSTAR_WRITE() %></dd>
+				<dd><%=dto.getCreated() %></dd>
 				
 				<dt>조회수</dt>
 				<!-- <dd>13</dd> -->
-				<dd><%=dto.getSTAR_COUNT() %></dd>
+				<dd><%=dto.getHitCount() %></dd>
 			</dl>
 		
 		</div><!--  -->
@@ -101,7 +101,7 @@
 				<tr>
 					<td style="padding: 10px 40px 10px 10px; vertical-align: top; height: 150;">
 						<!-- 내용입니다. -->
-						<%=dto.getSTAR_CONTENT() %>
+						<%=dto.getContent() %>
 					</td>
 				</tr>
 			</table>
@@ -118,7 +118,7 @@
 			{
 			%>
 				<a href="<%=cp %>/Article.jsp?pageNum=<%=pageNum %>&num=<%=beforeNum %>"  >
-				이전글 : (<%=beforeNum %>) <%=dtoBefore.getSTAR_TITLE() %>
+				이전글 : (<%=beforeNum %>) <%=dtoBefore.getSubject() %>
 				</a>
 			<%
 			}
@@ -140,7 +140,7 @@
 			{
 			%>
 				<a href="<%=cp %>/Article.jsp?pageNum=<%=pageNum %>&num=<%=nextNum %>"  >
-				다음글 : (<%=nextNum %>) <%=dtoNext.getSTAR_TITLE() %>   <!-- DAO check~~★★★ -->
+				다음글 : (<%=nextNum %>) <%=dtoNext.getSubject() %>   <!-- DAO check~~★★★ -->
 				</a>
 			<%
 			}
@@ -159,17 +159,17 @@
 	</div><!-- close #bbsArticle -->         <!-- check~!!! -->
 
 
-	<%-- <div class="bbsArticle_noLine" style="text-align: right;">
+	<div class="bbsArticle_noLine" style="text-align: right;">
 		<!-- From : 211.238.142.151 -->
 		From : <%=dto.getIpAddr() %>
-	</div> --%>
+	</div><!--  -->
 
 	<div id="bbsArticle_footer">
 		<div id="leftFooter">
 			<input type="button" value="수정" class="btn2"
-			onclick="javascript:location.href='<%=cp%>/Updated.jsp?num=<%=dto.getSTAR_NUMBER()%>&pageNum=<%=pageNum%>&status=1'">
+			onclick="javascript:location.href='<%=cp%>/Updated.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>&status=1'">
 			<input type="button" value="삭제" class="btn2"
-			onclick="javascript:location.href='<%=cp%>/Updated.jsp?num=<%=dto.getSTAR_NUMBER()%>&pageNum=<%=pageNum%>&status=2'">
+			onclick="javascript:location.href='<%=cp%>/Updated.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>&status=2'">
 		</div>
 		
 		<div id="rightFooter">

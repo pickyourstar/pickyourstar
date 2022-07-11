@@ -1,5 +1,4 @@
-package pickBoard;
-
+package pick.board;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +33,7 @@ public class BoardDAO
 		try
 		{
 			
-			sql = "SELECT NVL(MAX(STAR_NUMBER), 0) AS MAXNUM FROM TBL_TEMP";
+			sql = "SELECT NVL(MAX(NUM), 0) AS MAXNUM FROM TBL_STAR";
 		
 			stmt = conn.createStatement();
 		
@@ -75,19 +74,19 @@ public class BoardDAO
 		try
 		{
 			
-			sql = "INSERT INTO TBL_TEMP(STAR_NUMBER, STAR_TITLE, STAR_CONTENT, STAR_IMAGE, STAR_COUNT, STAR_REPLY, STAR_WRITE, STAR_MODIFY, STAR_DELETE, WRITER)" 
-					+ "VALUES(?, ?, ?, ?, 0, 0, SYSDATE, ?, ?,?)";
+			sql = "INSERT INTO TBL_STAR(NUM, NAME, PWD, EMAIL, SUBJECT, CONTENT, IPADDR, HITCOUNT, CREATED)"
+				+ " VALUES(?, ?, ?, ?, ?, ?, ?, 0, SYSDATE)";
 		
 	
 	    pstmt = conn.prepareStatement(sql);
 		
-		pstmt.setInt(1, dto.getSTAR_NUMBER());
-		pstmt.setString(2, dto.getSTAR_TITLE());
-		pstmt.setString(3, dto.getSTAR_CONTENT());
-		pstmt.setString(4, dto.getSTAR_IMAGE());
-		pstmt.setString(5, dto.getSTAR_MODIFY());
-		pstmt.setString(6, dto.getSTAR_DELETE());
-		pstmt.setString(7, dto.getWRITER());
+		pstmt.setInt(1, dto.getNum());
+		pstmt.setString(2, dto.getName());
+		pstmt.setString(3, dto.getPwd());
+		pstmt.setString(4, dto.getEmail());
+		pstmt.setString(5, dto.getSubject());
+		pstmt.setString(6, dto.getContent());
+		pstmt.setString(7, dto.getIpAddr());
 
 		
 		result = pstmt.executeUpdate();
@@ -105,40 +104,7 @@ public class BoardDAO
 	}
 	
 	
-	
-	//DB 레코드의 갯수를 가져오는 메소드 정의 (지금은 전체~!!!)
-	//-> 검색 기능을 작업하게 되면... 수정하게 될 메소드 (검색 대상~!!!)
-	//페이징 처리
-	/*public int getDataCount()
-	{
-		int result = 0;
-		
-		Statement stmt = null;
-		ResultSet rs = null;
-		String sql = "";
-		
-		try
-		{
-			sql = "SELECT COUNT(*) AS COUNT FROM TBL_BOARD";
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			if (rs.next())
-				result = rs.getInt(1);
-			rs.close();
-			stmt.close();
-			
-		}catch(Exception e)
-		{
-			System.out.println(e.toString());
-		}
-		
-		
-		return result;
-		
-	}*/
-	
-	//CHECK~!!!
-	//검색 기능을 추가~!!!  제목,작성자,내용   입력값(ex.어제,최현지,축구)
+	//검색 기능을 추가 :  제목,작성자,내용 
 	public int getDataCount(String searchKey, String searchValue)
 	{
 		int result = 0;
@@ -156,7 +122,7 @@ public class BoardDAO
 			//오라클 쿼리문 가져옴
 			//subject 와 음식 부분 수정
 			sql = "SELECT COUNT(*) AS COUNT"
-				+ " FROM TBL_TEMP"
+				+ " FROM TBL_STAR"
 				+ " WHERE " + searchKey + " LIKE ?";
 			
 			//where 뒤와 like 앞에 꼭 한 칸씩 비워두기
@@ -183,89 +149,7 @@ public class BoardDAO
 	}
 	
 	
-	
-	
-	//특정 영역의(시작번호 ~ 끝번호) 게시물의 목록을
-	//읽어오는 메소드 정의
-	//-> 검색 기능을 작업하게 되면... 수정하게 될 메소드 (검색 대상~!!!)
-	/*
-	public List<BoardDTO> getLists(int start, int end)
-	{
-		
-		
-		List<BoardDTO> result = new ArrayList<BoardDTO>();
-		
-		//PreparedStatement pstmt = conn.prepareStatement(sql);
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		String sql = "";
-		
-		try
-		{
-			sql =  "SELECT NUM, NAME, SUBJECT, HITCOUNT, CREATED";
-			sql += " FROM";
-			sql += " (";
-			sql += "    SELECT ROWNUM RNUM, DATA.*";
-			sql += "    FROM";
-			sql += "    (";
-			sql += "        SELECT NUM, NAME, SUBJECT, HITCOUNT, TO_CHAR(CREATED,'YYYY-MM-DD') AS CREATED";
-			sql += "        FROM TBL_BOARD";
-			sql += "        ORDER BY NUM DESC";
-			sql += "    ) DATA";
-			sql += " )";
-			sql += " WHERE RNUM >= ? AND RNUM <= ?";
-			
-			pstmt = conn.prepareStatement(sql);
-			
-			
-			
-			//
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-			
-			rs = pstmt.executeQuery();
-			
-			
-			while(rs.next())
-			{
-				
-				//
-				BoardDTO dto = new BoardDTO();
-				
-				//pstmt.setInt(1, rs.getNum());
-				//pstmt.setString(2, rs.getName());
-				//pstmt.setString(3, rs.getSubject());
-				//pstmt.setInt(4, rs.getHitcount());
-				//pstmt.setString(5, rs.getCreated());
-				
-				
-				//★★★
-				dto.setNum(rs.getInt("NUM"));
-				dto.setName(rs.getString("NAME"));
-				dto.setSubject(rs.getString("SUBJECT"));
-				dto.setHitCount(rs.getInt("HITCOUNT"));
-				dto.setCreated(rs.getString("CREATED"));
-				
-				result.add(dto);
-			
-			
-			}
-			rs.close();
-			pstmt.close();
-			
-		}catch(Exception e)
-		{
-			System.out.println(e.toString());
-		}
-		
-		
-		
-		return result;
-		
-	}*/
-	
+
 	public List<BoardDTO> getLists(int start, int end, String searchKey, String searchValue)
 	{
 		
@@ -284,16 +168,16 @@ public class BoardDAO
 			//전처리 해주기 체크
 			searchValue = "%" + searchValue + "%";  //추가구문
 			
-			sql =  "SELECT STAR_NUMBER, STAR_TITLE, WRITER, STAR_COUNT, STAR_WRITE";
+			sql =  "SELECT NUM, NAME, SUBJECT, HITCOUNT, CREATED";
 			sql += " FROM";
 			sql += " (";
 			sql += "    SELECT ROWNUM RNUM, DATA.*";
 			sql += "    FROM";
 			sql += "    (";
-			sql += "        SELECT STAR_NUMBER, STAR_TITLE, WRITER, STAR_COUNT, TO_CHAR(STAR_WRITE,'YYYY-MM-DD') AS STAR_WRITE";
-			sql += "        FROM TBL_TEMP";
+			sql += "        SELECT NUM, NAME, SUBJECT, HITCOUNT, TO_CHAR(CREATED,'YYYY-MM-DD') AS CREATED";
+			sql += "        FROM TBL_STAR";
 			sql += "        WHERE " + searchKey + " LIKE ?";  //추가구문
-			sql += "        ORDER BY STAR_NUMBER DESC";
+			sql += "        ORDER BY NUM DESC";
 			sql += "    ) DATA";
 			sql += " )";
 			sql += " WHERE RNUM >= ? AND RNUM <= ?";
@@ -318,11 +202,11 @@ public class BoardDAO
 				BoardDTO dto = new BoardDTO();
 				
 				
-				dto.setSTAR_NUMBER(rs.getInt("STAR_NUMBER"));
-				dto.setSTAR_TITLE(rs.getString("STAR_TITLE"));
-				dto.setWRITER(rs.getString("WRITER"));
-				dto.setSTAR_COUNT(rs.getInt("STAR_COUNT"));
-				dto.setSTAR_WRITE(rs.getString("STAR_WRITE"));
+				dto.setNum(rs.getInt("NUM"));
+				dto.setName(rs.getString("NAME"));
+				dto.setSubject(rs.getString("SUBJECT"));
+				dto.setHitCount(rs.getInt("HITCOUNT"));
+				dto.setCreated(rs.getString("CREATED"));
 				
 				result.add(dto);
 			
@@ -359,7 +243,7 @@ public class BoardDAO
 		
 		try
 		{
-			sql = "UPDATE TBL_TEMP SET STAR_COUNT = STAR_COUNT + 1 WHERE STAR_NUMBER=?";
+			sql = "UPDATE TBL_STAR SET HITCOUNT = HITCOUNT + 1 WHERE NUM=?";
 			
 			//
 			pstmt = conn.prepareStatement(sql);
@@ -398,8 +282,8 @@ public class BoardDAO
 		{
 			
 			
-			sql = "SELECT STAR_NUMBER, WRITER, STAR_TITLE, STAR_CONTENT, STAR_COUNT,"
-					+ " TO_CHAR(STAR_WRITE, 'YYYY-MM-DD') AS STAR_WRITE FROM TBL_TEMP WHERE STAR_NUMBER=?";	
+			sql = "SELECT NUM, NAME, PWD, EMAIL, SUBJECT, CONTENT, IPADDR, HITCOUNT,"
+					+ " TO_CHAR(CREATED, 'YYYY-MM-DD') AS CREATED FROM TBL_STAR WHERE NUM=?";	
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
@@ -414,12 +298,20 @@ public class BoardDAO
 				//BoardDTO dto = new BoardDTO();
 				
 				result = new BoardDTO();
-				result.setSTAR_NUMBER(rs.getInt("STAR_NUMBER"));
-				result.setWRITER(rs.getString("WRITER"));			
-				result.setSTAR_TITLE(rs.getString("STAR_TITLE"));
-				result.setSTAR_CONTENT(rs.getString("STAR_CONTENT"));
-				result.setSTAR_COUNT(rs.getInt("STAR_COUNT"));
-				result.setSTAR_WRITE(rs.getString("STAR_WRITE"));
+				result.setNum(rs.getInt("NUM"));
+				result.setName(rs.getString("NAME"));
+				result.setPwd(rs.getString("PWD"));
+				result.setEmail(rs.getString("EMAIL"));				
+				result.setSubject(rs.getString("SUBJECT"));
+				result.setContent(rs.getString("CONTENT"));
+				result.setIpAddr(rs.getString("IPADDR"));
+				result.setHitCount(rs.getInt("HITCOUNT"));
+				result.setCreated(rs.getString("CREATED"));
+
+				
+				//result.add();
+				//단일 dto 라서 굳이 해줄 필요가 없다...
+			
 			
 			}
 			
@@ -457,7 +349,7 @@ public class BoardDAO
 		
 		try
 		{
-			sql = "DELETE FROM TBL_TEMP WHERE STAR_NUMBER=?";
+			sql = "DELETE FROM TBL_STAR WHERE NUM=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
@@ -489,15 +381,17 @@ public class BoardDAO
 		
 		try
 		{
-			sql = "UPDATE TBL_TEMP SET WRITER=?, STAR_TITLE=?, STAR_CONTENT=? WHERE STAR_NUMBER=?";
+			sql = "UPDATE TBL_STAR SET NAME=?, PWD=?, EMAIL=?, SUBJECT=?, CONTENT=? WHERE NUM=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			//
-			pstmt.setString(1, dto.getWRITER());
-			pstmt.setString(2, dto.getSTAR_TITLE());
-			pstmt.setString(3, dto.getSTAR_CONTENT());
-			pstmt.setInt(4, dto.getSTAR_NUMBER());
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getPwd());
+			pstmt.setString(3, dto.getEmail());
+			pstmt.setString(4, dto.getSubject());
+			pstmt.setString(5, dto.getContent());
+			pstmt.setInt(6, dto.getNum());
 			
 		    result = pstmt.executeUpdate();
 		    
@@ -533,7 +427,7 @@ public class BoardDAO
 		try
 		{
 
-			sql = "SELECT NVL(MAX(STAR_NUMBER), -1) AS BEFORENUM FROM TBL_TEMP WHERE STAR_NUMBER<?";
+			sql = "SELECT NVL(MAX(NUM), -1) AS BEFORENUM FROM TBL_STAR WHERE NUM<?";
 			
 			//
 			pstmt = conn.prepareStatement(sql);
@@ -578,7 +472,7 @@ public class BoardDAO
 		try
 		{
 
-			sql = "SELECT NVL(MIN(STAR_NUMBER), -1) NEXTNUM FROM TBL_TEMP WHERE STAR_NUMBER>?";
+			sql = "SELECT NVL(MIN(NUM), -1) NEXTNUM FROM TBL_STAR WHERE NUM>?";
 			
 			//
 			pstmt = conn.prepareStatement(sql);
