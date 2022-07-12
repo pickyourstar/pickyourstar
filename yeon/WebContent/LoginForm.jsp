@@ -17,14 +17,27 @@
 
 <script type="text/javascript">
 
-$(function() {
-	$("#Join").click(function() {
 
-			window.open("JoinForm.jsp"); 
-			window.close();
-		})
+$(function(){
+	$("#Join").click(function(){
+		$.ajax({
+				type:"POST"
+				, url:"JoinForm.jsp"
+				, dataType:"html"
+				, success:function(data)
+				{
+					console.log("success");
+					console.log(data)
+					let url = "JoinForm.jsp";
+					console.log(url);
+					location.replace(url);
+				},
+				error: function(request , status, error){
+					alert("잘못된 접근입니다.");
+				}
+		});
 	});
-	
+});	
 </script>
 
 </head>

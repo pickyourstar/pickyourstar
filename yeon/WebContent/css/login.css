@@ -9,12 +9,11 @@ body {
   margin: 100px auto;
   text-align: center;
   width: 100%;
+  top: -50px;
   position: relative;
   font-family: 'Stylish', sans-serif;
   font-size: 20px;
 }
-
-/* Wrapper Is not Needed| Just for demo purpose.  */
 
 li {
   padding: 15px 100px;
@@ -27,6 +26,11 @@ li {
   text-decoration: none;
   display:inline-block;
   
+}
+.menuall
+{
+	position:relative;
+	top: -130px;
 }
 
 .menu1::before {
@@ -89,5 +93,113 @@ a:active {
 	border:0;
 	position: relative;
 	left: 1200px;
-	top: -180px;
+	top: -250px;
+}
+
+
+.api_map {
+      	 position:relative;
+      	 top:-180px;
+      	 left:1000px;
+      	 text-align:center;
+         width: 95px;
+         padding: 10px;
+         border: 1px solid black;
+         margin: 40px;
+  
+}
+.api_api {
+      	 position:relative;
+      	 top:-100px;
+      	 left:300px;
+      	 text-align:center;
+         width: 95px;
+         padding: 10px;
+         border: 1px solid black;
+         margin: 40px;
+  		 transition: all 0.4s cubic-bezier(.5, .24, 0, 1)
+}
+
+.progressbar {
+    display: inline-block;
+    width: 520px;
+    height: 21px;
+  	margin: auto;
+}
+.mypage
+{
+	position:relative;
+	top:-100px;
+	left:500px;
+}
+.box {
+  margin : 10px; 
+  padding : 30px;
+  border : 1px solid black;
+  border-radius : 5px;
+}
+.btn_mypage
+{
+
+	position:relative;
+	top:100px;
+	left:1200px;
+	
+}
+.btn_mp
+{
+	background-color: white;
+}
+
+.star0
+{
+	color: transparent;  
+  	text-shadow: 0 0 0 gray;
+}
+.star10
+{
+	color: transparent;  
+  	text-shadow: 0 0 0 yellow;
+}
+.star20
+{
+	color: transparent;  
+  	text-shadow: 0 0 0 green;
+}
+.star30
+{
+	color: transparent;  
+  	text-shadow: 0 0 0 purple;
+}
+.star40
+{
+	color: transparent;  
+  	text-shadow: 0 0 0 blue;
+}
+.star50
+{
+	color: transparent;  
+  	text-shadow: 0 0 0 red;
+}
+
+.btn_contact
+{	
+	position:relative;
+	top:100px;
+	left:500px;
+	
+	
+}
+.btn_ct
+{
+	background-color: white;
+}
+
+.box_contact
+{
+  margin : 10px; 
+  padding : 30px;
+  border : 1px solid black;
+  border-radius : 5px;
+ 
 }

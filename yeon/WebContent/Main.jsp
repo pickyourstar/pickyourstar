@@ -46,23 +46,50 @@
 </style>
 <script type="text/javascript">
 
-$(function() {
-	$("#Login").click(function() {
-
-			window.open("LoginForm.jsp"); 
-			window.close();
-		})
+$(function(){
+	$("#Login").click(function(){
+		$.ajax({
+				type:"POST"
+				, url:"Main.jsp"
+				, dataType:"html"
+				, success:function(data)
+				{
+					console.log("success");
+					console.log(data)
+					let url = "LoginForm.jsp";
+					console.log(url);
+					location.replace(url);
+				},
+				error: function(request , status, error){
+					alert("잘못된 접근입니다.");
+				}
+		});
 	});
-	
+});
 		
 	
-$(function() {
-	$("#Join").click(function() {
-
-			window.open("JoinForm.jsp"); 
-			window.close();
-		})
+$(function(){
+	$("#Join").click(function(){
+		$.ajax({
+				type:"POST"
+				, url:"Main.jsp"
+				, dataType:"html"
+				, success:function(data)
+				{
+					
+					console.log("success");
+					console.log(data)
+					let url = "JoinForm.jsp";
+					console.log(url);
+					location.replace(url);
+				},
+				error: function(request , status, error){
+					alert("잘못된 접근입니다.");
+				}
+		});
 	});
+});
+	
 </script>
 </head>
 <body>

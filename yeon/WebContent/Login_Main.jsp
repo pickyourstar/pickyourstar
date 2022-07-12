@@ -1,9 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	request.setCharacterEncoding("UTF-8");
-	String cp = request.getContextPath();
-%>
+<%@ include file ="header.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,57 +11,34 @@
 <!-- jquery -->
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
+/* var xhr = new XMLHttpRequest();
+var url = 'http://apis.data.go.kr/B090041/openapi/service/AstroEventInfoService/getAstroEventInfo';
+var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'DZyrJyUPjsJZ8n0+QxbQqGkDCSSwZ5Z9YZmYoACnJsEGTzANLwHtneqY31HLj28NCwo5El21ssta/pkIiuoqXA=='; 
+queryParams += '&' + encodeURIComponent('solYear') + '=' + encodeURIComponent('2022'); 
+queryParams += '&' + encodeURIComponent('solMonth') + '=' + encodeURIComponent('07'); 
+xhr.open('GET', url + queryParams);
+xhr.onreadystatechange = function () {
+    if (this.readyState == 4) {
+        alert('Status: '+this.status+'nHeaders: '+JSON.stringify(this.getAllResponseHeaders())+'nBody: '+this.responseText);
+    }
+};
 
-$(function(){
-	$("#logout").click(function(){
-		window.open("Main.jsp");
-		window.close();
-		
-	})
-	});
-
-	
+xhr.send('');
+ */
 </script>
 </head>
 <body>
 
-<div class = "loginmaintext">
-	쓰레기 하나를 주울 때 마다, 별 하나가 또렷해집니다.
-	<h1>
-		Pick Your Star
-	</h1>
-</div>
+	<div class="api_api">
+				천문현상
+		<div>
+		
+				
+		</div>
+	</div>
+	
+	<div class="api_map">별 명당 지도</div>
 
-<div class="logout">
-
-	<button id="logout" type="button">🌏지구로 떠나기</button>
-
-</div>
-
-<div>
-	<ul>
-		<li>
-			<a href="#" class="menu1"> Home </a>
-		</li>
-		|
-		<li>
-			<a href="#" class="menu1"> About </a>
-		</li>
-		|
-		<li>
-			<a href="#" class="menu1"> My Blog </a>
-		</li>
-		|
-		<li>
-			<a href="#" class="menu1"> Contact </a>
-		</li>
-		|
-		<li>
-			<a href="#" class="menu1"> ... </a>
-		</li>
-	</ul>
-<hr />
-</div>
 
 </body>
 </html>

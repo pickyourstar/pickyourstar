@@ -43,7 +43,7 @@ $(document).ready(function()
 	
 					<h1 class="join_h1">회원가입</h1>
 		<div>
-		
+			
 			<label for="email">아이디(이메일) *</label><br />
 	    	<input type="email" class="input_join" id="email" name="email" placeholder="이메일을 입력하세요.">
 	    	
@@ -68,12 +68,14 @@ $(document).ready(function()
 	    </div>
 		
 		
-	</form>
-		<div>
-			<input type="submit" class="join_btn" id="join_btn" value="회원가입"/>
-		</div>
-		<br />
 	
+		<div>
+	
+			<button type="submit" class="join_btn" id="join_btn" >회원가입</button>
+		</div>
+	
+		<br />
+	</form>	
 
 </div>	
 </body>
