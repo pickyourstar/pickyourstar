@@ -1,6 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file ="header.jsp" %>
+<%
+String email = request.getParameter("email");
+String password = request.getParameter("password");
+
+// 로그인 정보가 없으면 로그인 창으로 쫓아내는 코드
+	if(session.getAttribute("email")==null)
+	{
+		response.sendRedirect("Logout.jsp");
+	}
+
+%>
+<jsp:include page="./header.jsp" flush="true">
+<jsp:param value="email" name="email"/>
+
+</jsp:include>
 
 <!DOCTYPE html>
 <html>
@@ -15,21 +29,17 @@
 </script>
 </head>
 <body>
-<div class="Contact">
 
-        
-        <br />
+<h1 class="contact_h1">Contact</h1>
 
-      
-     <br />
-</div>    
- 
- 
+
+
+
 <div class="box_contact">
-	<form class="box_contact">
+	<form action="Login_Contact.jsp" method="post">
 	<input type="text" placeholder="닉네임"/><br />
 	<input type="email" placeholder="이메일" />	<br />
-	<textarea class="txarea" cols="100" rows="30" placeholder="내용" style=" resize: none;"></textarea>	<br />
+	<textarea class="txarea" cols="30" rows="20" placeholder="내용" style=" resize: none;"></textarea>	<br />
 
 
 	<button type="submit" style="background-color: white"> 제출하기 </button>

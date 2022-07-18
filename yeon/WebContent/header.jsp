@@ -3,6 +3,13 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	
+	
+	// 로그인 정보가 없으면 로그인 창으로 쫓아내는 코드
+	if(session.getAttribute("email")==null)
+	{
+		response.sendRedirect("Logout.jsp");
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -14,42 +21,18 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 
-
-$(function(){
-	$("#logout").click(function(){
-		$.ajax({
-				type:"POST"
-				, url:"Main.jsp"
-				, dataType:"html"
-				, success:function(data)
-				{
-					alert("지구로 떠납니다.");
-					console.log("success");
-					console.log(data)
-					let url = "Main.jsp";
-					console.log(url);
-					location.replace(url);
-				},
-				error: function(request , status, error){
-					alert("잘못된 접근입니다.");
-				}
-		});
-	});
-});
-
-
 $(function(){
 	$("#MyBlog").click(function(){
 		$.ajax({
 				type:"POST"
-				, url:"Login_Mypage.jsp"
+				, url:"MypageOk.jsp"
 				, dataType:"html"
 				, success:function(data)
 				{
 					
 					console.log("success");
 					console.log(data)
-					let url = "Login_Mypage.jsp";
+					let url = "MypageOk.jsp";
 					console.log(url);
 					location.replace(url);
 				},
@@ -138,9 +121,17 @@ $(function(){
 	</h1>
 </div>
 
-<div class="logout">
 
-	<button id="logout" type="button">🌏지구로 떠나기</button>
+<div class="logout">
+	<%
+		if(session.getAttribute("email")!=null){
+			String email = (String)session.getAttribute("email");
+			out.println(email+"님 반갑습니다.<br>");
+			out.println("<a href='Logout.jsp'>🌏지구로 떠나기</a>");
+		}
+	
+	%>
+
 
 </div>
 

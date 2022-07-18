@@ -157,22 +157,14 @@
 .login_h1
 {
   position: relative;
-  top: -60px;
-  left:100px;
+  top: 100px;
+  left:600px;
 }
 
-
-
-.loginForm
-{
-	 position: relative;
-	 top: -350px;
-	 left:800px;
-}
 .login_btn
 {
   position: relative;
-  top: -250px;
+  top: -300px;
   left:800px;
   width: 180px;
   height: 50px;
@@ -184,14 +176,25 @@
   border: solid 2px grey;
   border-radius: 12px;
 }
-.input_login
+
+.loginForm
 {
+	 position: relative;
+	 top: -350px;
+	 left:800px;
+}
+
+.input_login
+{	
+	
 	width: 300px;
 	height: 50px;
 	border-top: none;
 	border-left: none;
 	border-right: none;
 	border-bottom : 3px solid black;
+	
+  
 }
 .login_h1
 {
@@ -200,6 +203,12 @@
   left:100px;
 }
 
+table
+{
+	position: relative;
+ 	top: 100px;
+	left:1000px;
+}
 
 .joinForm
 {
@@ -210,8 +219,8 @@
 .join_btn
 {
   position: relative;
-  top: -250px;
-  left:850px;
+  top: 100px;
+  left:100px;
   width: 180px;
   height: 50px;
   font-size:30px;
@@ -276,7 +285,5 @@
   top: -60px;
   left:100px;
 }
-
-
 
 

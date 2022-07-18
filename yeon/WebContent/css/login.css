@@ -88,14 +88,13 @@ a:active {
     text-decoration: none;
 }
 
-#logout {
+.logout {
 	background-color: rgba(0,0,0,0);
 	border:0;
 	position: relative;
 	left: 1200px;
 	top: -250px;
 }
-
 
 .api_map {
       	 position:relative;
@@ -197,9 +196,20 @@ a:active {
 
 .box_contact
 {
+  position:relative;
+  top:100px;
+  left:100px;
   margin : 10px; 
   padding : 30px;
   border : 1px solid black;
   border-radius : 5px;
  
+}
+
+.contact_h1
+{
+  position:relative;
+  top:50px;
+  left:300px;
+
 }

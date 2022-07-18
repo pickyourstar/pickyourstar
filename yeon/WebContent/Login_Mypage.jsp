@@ -1,6 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file ="header.jsp" %>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String email = request.getParameter("email");
+	String password = request.getParameter("password");
+
+	// 로그인 정보가 없으면 로그인 창으로 쫓아내는 코드
+		if(session.getAttribute("email")==null)
+		{
+			response.sendRedirect("Logout.jsp");
+		}
+	
+%>
+<jsp:include page="./header.jsp" flush="true">
+<jsp:param value="email" name="email"/>
+</jsp:include>
 
 <!DOCTYPE html>
 <html>
@@ -16,7 +30,7 @@
 </head>
 <body>
 <div class="mypage">
-    님의 인증 횟수 :      <br />
+     <%= request.getParameter("email") %> 님의 인증 횟수 :      <br />
     	
         
         <progress class="progressbar" value="10" max="50"></progress> <br/>
@@ -40,11 +54,11 @@
         <br />
 
       
-    현재      님은  별에 살고 계십니다.   <br />
+    현재   <%= email %>님은  별에 살고 계십니다.   <br />
 </div>    
  
 <div class="box">
-	아이디(이메일) : <br />
+	아이디(이메일) : <%= email %> <br />
 	닉네임 :		<br />
 	생년월일 :		<br />
 
